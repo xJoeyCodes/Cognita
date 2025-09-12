@@ -1,0 +1,190 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Cognita Color Scheme: Purple-Blue Gradient (#ff94ff to #0166f8), Dark Blue Text (#000532) */
+    --background: 0 0% 100%; /* White background */
+    --foreground: 230 85% 10%; /* Dark blue text #000532 */
+
+    --card: 0 0% 100%; /* White cards */
+    --card-foreground: 230 85% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 230 85% 10%;
+
+    /* Primary: Blue from logo */
+    --primary: 217 95% 49%; /* Blue #0166f8 */
+    --primary-foreground: 0 0% 100%; /* White text on blue */
+
+    /* Secondary: Light blue variants */
+    --secondary: 217 95% 95%; /* Very light blue */
+    --secondary-foreground: 230 85% 10%;
+
+    /* Muted: Light blue variants */
+    --muted: 217 30% 96%;
+    --muted-foreground: 217 20% 45%;
+
+    /* Accent: Pink/Purple from logo */
+    --accent: 300 100% 79%; /* Pink #ff94ff */
+    --accent-foreground: 230 85% 10%; /* Dark blue on pink */
+
+    /* Destructive: Keep red for errors */
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Borders and inputs */
+    --border: 217 30% 85%;
+    --input: 217 30% 92%;
+    --ring: 217 95% 49%;
+
+    --radius: 0.75rem; /* Slightly more rounded for modern look */
+
+    /* Success variant for positive actions */
+    --success: 217 95% 49%;
+    --success-foreground: 0 0% 100%;
+
+    /* Purple variants */
+    --purple: 300 100% 79%;
+    --purple-foreground: 230 85% 10%;
+    --purple-muted: 300 50% 95%;
+
+    /* Gradients matching the logo */
+    --gradient-primary: linear-gradient(180deg, hsl(300 100% 79%), hsl(217 95% 49%));
+    --gradient-accent: linear-gradient(135deg, hsl(300 100% 79%), hsl(300 80% 85%));
+    --gradient-hero: linear-gradient(180deg, hsl(300 100% 79%) 0%, hsl(217 95% 49%) 100%);
+
+    /* Shadows */
+    --shadow-blue: 0 4px 20px hsl(217 95% 49% / 0.15);
+    --shadow-purple: 0 4px 20px hsl(300 100% 79% / 0.2);
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 230 85% 10%;
+    --sidebar-primary: 217 95% 49%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 217 30% 95%;
+    --sidebar-accent-foreground: 230 85% 10%;
+    --sidebar-border: 217 30% 85%;
+    --sidebar-ring: 217 95% 49%;
+  }
+
+  .dark {
+    /* Dark mode with purple-blue gradient theme */
+    --background: 230 85% 3%; /* Very dark blue background */
+    --foreground: 0 0% 95%; /* Light text */
+
+    --card: 230 50% 8%; /* Dark blue cards */
+    --card-foreground: 0 0% 95%;
+
+    --popover: 230 50% 8%;
+    --popover-foreground: 0 0% 95%;
+
+    --primary: 217 95% 55%; /* Brighter blue for dark mode */
+    --primary-foreground: 230 85% 3%;
+
+    --secondary: 230 40% 12%;
+    --secondary-foreground: 0 0% 95%;
+
+    --muted: 230 30% 10%;
+    --muted-foreground: 230 20% 65%;
+
+    --accent: 300 100% 85%; /* Brighter purple for dark mode */
+    --accent-foreground: 230 85% 3%;
+
+    --destructive: 0 62.8% 50%;
+    --destructive-foreground: 0 0% 95%;
+
+    --border: 230 30% 15%;
+    --input: 230 30% 12%;
+    --ring: 217 95% 55%;
+
+    --success: 217 95% 55%;
+    --success-foreground: 230 85% 3%;
+
+    --purple: 300 100% 85%;
+    --purple-foreground: 230 85% 3%;
+    --purple-muted: 300 30% 10%;
+
+    --gradient-primary: linear-gradient(180deg, hsl(300 100% 85%), hsl(217 95% 55%));
+    --gradient-accent: linear-gradient(135deg, hsl(300 100% 85%), hsl(300 80% 90%));
+    --gradient-hero: linear-gradient(180deg, hsl(300 100% 85%) 0%, hsl(217 95% 55%) 100%);
+
+    --shadow-blue: 0 4px 20px hsl(217 95% 49% / 0.3);
+    --shadow-purple: 0 4px 20px hsl(300 100% 79% / 0.3);
+
+    --sidebar-background: 230 50% 5%;
+    --sidebar-foreground: 0 0% 90%;
+    --sidebar-primary: 217 95% 55%;
+    --sidebar-primary-foreground: 230 85% 3%;
+    --sidebar-accent: 230 30% 10%;
+    --sidebar-accent-foreground: 0 0% 90%;
+    --sidebar-border: 230 30% 15%;
+    --sidebar-ring: 217 95% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Custom utilities for Cognita */
+  .gradient-text-primary {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-text-accent {
+    background: var(--gradient-accent);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .shadow-blue {
+    box-shadow: var(--shadow-blue);
+  }
+
+  .shadow-purple {
+    box-shadow: var(--shadow-purple);
+  }
+
+  /* Animations */
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes glow {
+    from {
+      box-shadow: 0 0 20px hsl(217 95% 49% / 0.2);
+    }
+    to {
+      box-shadow: 0 0 30px hsl(217 95% 49% / 0.4);
+    }
+  }
+}
