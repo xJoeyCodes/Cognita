@@ -3,7 +3,7 @@
 
 ### Joseph Alamenhe
 - **Role**: Project Lead 
-- **Institution**: [Your Institution]
+- **Institution**: University of Western Cape 
 - **Email**: josephalamenhe125@gmail.com
 - **Responsibilities**: 
   - Project architecture and design
