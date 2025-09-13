@@ -93,8 +93,13 @@ const UploadPage = () => {
         try {
           const geminiApiKey = import.meta.env.VITE_GEMINI_API_KEY;
           
+          console.log('Environment variables check:');
+          console.log('VITE_GEMINI_API_KEY exists:', !!import.meta.env.VITE_GEMINI_API_KEY);
+          console.log('VITE_GEMINI_API_KEY value:', import.meta.env.VITE_GEMINI_API_KEY ? '***' + import.meta.env.VITE_GEMINI_API_KEY.slice(-4) : 'undefined');
+          console.log('All env vars:', import.meta.env);
+          
           if (!geminiApiKey) {
-            throw new Error('Gemini API key not found. Please add VITE_GEMINI_API_KEY to your environment variables.');
+            throw new Error('Gemini API key not found. Please add VITE_GEMINI_API_KEY to your .env.local file and restart the dev server.');
           }
 
           console.log('Starting AI analysis for:', file.name);
