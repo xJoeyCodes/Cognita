@@ -132,6 +132,4 @@ Make sure all required environment variables are set:
 - `VITE_SUPABASE_ANON_KEY`: Your Supabase anonymous key
 - `VITE_GEMINI_API_KEY`: Your Google Gemini API key
 
-## Production Deployment
 
-For production deployment, update your environment variables in your hosting platform (Vercel, Netlify, etc.) with the same keys used in development.

@@ -10,7 +10,7 @@ Cognita AI is an intelligent learning platform that transforms your PDF document
 3. Enter your email and create a password
 4. Verify your email if required
 
-### Step 2: Upload Your First PDF
+### Step 2: Upload Your PDF
 1. Sign in to your account
 2. Navigate to the Dashboard
 3. Click "Upload New PDFs"
