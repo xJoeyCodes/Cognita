@@ -10,6 +10,7 @@ import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
 import StudySession from "./pages/StudySession";
 import Quiz from "./pages/Quiz";
+import Achievements from "./pages/Achievements";
 import NotFound from "./pages/NotFound";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 
@@ -51,6 +52,11 @@ const App = () => (
           <Route path="/quiz" element={
             <ProtectedRoute>
               <Quiz />
+            </ProtectedRoute>
+          } />
+          <Route path="/achievements" element={
+            <ProtectedRoute>
+              <Achievements />
             </ProtectedRoute>
           } />
           

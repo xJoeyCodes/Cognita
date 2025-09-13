@@ -78,7 +78,7 @@ const Home = () => {
       title: "Achievements",
       description: "Unlock badges and achievements as you progress in your learning journey",
       icon: Trophy,
-      link: "/dashboard",
+      link: "/achievements",
       gradient: "from-[#ff94ff] to-[#0166f8]",
       hoverGradient: "from-[#ff94ff]/90 to-[#0166f8]/90",
       buttonText: "View Achievements",
