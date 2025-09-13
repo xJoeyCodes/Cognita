@@ -155,11 +155,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [Shadcn/ui](https://ui.shadcn.com/) for the component library
 
 
-
-## 🌟 Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=your-username/cognita-ai&type=Date)](https://star-history.com/xJoeyCodes/cognita-ai&Date)
-
----
-
 **Made with ❤️ by the Cognita AI Team (which is just ME)**
