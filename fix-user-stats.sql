@@ -1,7 +1,4 @@
--- Quick fix for user stats system
--- Run this in your Supabase SQL Editor
 
--- First, create the user_stats table if it doesn't exist
 CREATE TABLE IF NOT EXISTS public.user_stats (
   id UUID NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
   user_id UUID NOT NULL UNIQUE,
@@ -15,10 +12,8 @@ CREATE TABLE IF NOT EXISTS public.user_stats (
   updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
 );
 
--- Enable RLS
 ALTER TABLE public.user_stats ENABLE ROW LEVEL SECURITY;
 
--- Create policies (drop existing ones first to avoid conflicts)
 DROP POLICY IF EXISTS "Users can view their own stats" ON public.user_stats;
 DROP POLICY IF EXISTS "Users can create their own stats" ON public.user_stats;
 DROP POLICY IF EXISTS "Users can update their own stats" ON public.user_stats;
@@ -44,14 +39,12 @@ ON public.user_stats
 FOR DELETE 
 USING (auth.uid() = user_id);
 
--- Create trigger for automatic timestamp updates
 DROP TRIGGER IF EXISTS update_user_stats_updated_at ON public.user_stats;
 CREATE TRIGGER update_user_stats_updated_at
   BEFORE UPDATE ON public.user_stats
   FOR EACH ROW
   EXECUTE FUNCTION public.update_updated_at_column();
 
--- Create the basic functions (simplified versions)
 CREATE OR REPLACE FUNCTION public.increment_total_flashcards(user_uuid UUID, increment_amount INTEGER DEFAULT 1)
 RETURNS VOID AS $$
 BEGIN
@@ -80,13 +73,11 @@ DECLARE
   current_streak INTEGER;
   days_diff INTEGER;
 BEGIN
-  -- Get current streak info
   SELECT study_streak, last_streak_date 
   INTO current_streak, last_streak_date
   FROM public.user_stats 
   WHERE user_id = user_uuid;
 
-  -- If no stats exist, create them
   IF current_streak IS NULL THEN
     INSERT INTO public.user_stats (user_id, study_streak, last_streak_date)
     VALUES (user_uuid, 1, current_date)
@@ -97,26 +88,21 @@ BEGIN
     RETURN;
   END IF;
 
-  -- Calculate days difference
   IF last_streak_date IS NULL THEN
     days_diff := 999; -- Treat as very old date
   ELSE
     days_diff := current_date - last_streak_date;
   END IF;
 
-  -- Check if streak should continue or reset
   IF days_diff = 0 THEN
-    -- Already studied today, no change needed
     RETURN;
   ELSIF days_diff = 1 THEN
-    -- Consecutive day, increment streak
     UPDATE public.user_stats 
     SET study_streak = current_streak + 1,
         last_streak_date = current_date,
         updated_at = now()
     WHERE user_id = user_uuid;
   ELSE
-    -- Gap of more than 1 day, reset streak to 1
     UPDATE public.user_stats 
     SET study_streak = 1, 
         last_streak_date = current_date,
@@ -126,7 +112,6 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
--- Initialize stats for existing users who don't have them
 INSERT INTO public.user_stats (user_id, total_flashcards, studied_today, average_score, study_streak, daily_goal)
 SELECT 
   au.id as user_id,

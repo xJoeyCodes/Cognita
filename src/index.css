@@ -2,64 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
 
 @layer base {
   :root {
-    /* Cognita Color Scheme: Purple-Blue Gradient (#ff94ff to #0166f8), Dark Blue Text (#000532) */
-    --background: 0 0% 100%; /* White background */
-    --foreground: 230 85% 10%; /* Dark blue text #000532 */
+    --background: 0 0% 100%;
+    --foreground: 230 85% 10%;
 
-    --card: 0 0% 100%; /* White cards */
+    --card: 0 0% 100%;
     --card-foreground: 230 85% 10%;
 
     --popover: 0 0% 100%;
     --popover-foreground: 230 85% 10%;
 
-    /* Primary: Blue from logo */
-    --primary: 217 95% 49%; /* Blue #0166f8 */
-    --primary-foreground: 0 0% 100%; /* White text on blue */
+    --primary: 217 95% 49%;
+    --primary-foreground: 0 0% 100%;
 
-    /* Secondary: Light blue variants */
-    --secondary: 217 95% 95%; /* Very light blue */
+    --secondary: 217 95% 95%;
     --secondary-foreground: 230 85% 10%;
 
-    /* Muted: Light blue variants */
     --muted: 217 30% 96%;
     --muted-foreground: 217 20% 45%;
 
-    /* Accent: Pink/Purple from logo */
-    --accent: 300 100% 79%; /* Pink #ff94ff */
-    --accent-foreground: 230 85% 10%; /* Dark blue on pink */
+    --accent: 300 100% 79%;
+    --accent-foreground: 230 85% 10%;
 
-    /* Destructive: Keep red for errors */
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
 
-    /* Borders and inputs */
     --border: 217 30% 85%;
     --input: 217 30% 92%;
     --ring: 217 95% 49%;
 
-    --radius: 0.75rem; /* Slightly more rounded for modern look */
+    --radius: 0.75rem;
 
-    /* Success variant for positive actions */
     --success: 217 95% 49%;
     --success-foreground: 0 0% 100%;
 
-    /* Purple variants */
     --purple: 300 100% 79%;
     --purple-foreground: 230 85% 10%;
     --purple-muted: 300 50% 95%;
 
-    /* Gradients matching the logo */
     --gradient-primary: linear-gradient(180deg, hsl(300 100% 79%), hsl(217 95% 49%));
     --gradient-accent: linear-gradient(135deg, hsl(300 100% 79%), hsl(300 80% 85%));
     --gradient-hero: linear-gradient(180deg, hsl(300 100% 79%) 0%, hsl(217 95% 49%) 100%);
 
-    /* Shadows */
     --shadow-blue: 0 4px 20px hsl(217 95% 49% / 0.15);
     --shadow-purple: 0 4px 20px hsl(300 100% 79% / 0.2);
 
@@ -74,17 +60,16 @@ All colors MUST be HSL.
   }
 
   .dark {
-    /* Dark mode with purple-blue gradient theme */
-    --background: 230 85% 3%; /* Very dark blue background */
-    --foreground: 0 0% 95%; /* Light text */
+    --background: 230 85% 3%;
+    --foreground: 0 0% 95%;
 
-    --card: 230 50% 8%; /* Dark blue cards */
+    --card: 230 50% 8%;
     --card-foreground: 0 0% 95%;
 
     --popover: 230 50% 8%;
     --popover-foreground: 0 0% 95%;
 
-    --primary: 217 95% 55%; /* Brighter blue for dark mode */
+    --primary: 217 95% 55%;
     --primary-foreground: 230 85% 3%;
 
     --secondary: 230 40% 12%;
@@ -93,7 +78,7 @@ All colors MUST be HSL.
     --muted: 230 30% 10%;
     --muted-foreground: 230 20% 65%;
 
-    --accent: 300 100% 85%; /* Brighter purple for dark mode */
+    --accent: 300 100% 85%;
     --accent-foreground: 230 85% 3%;
 
     --destructive: 0 62.8% 50%;
@@ -138,7 +123,6 @@ All colors MUST be HSL.
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 
-  /* Custom utilities for Cognita */
   .gradient-text-primary {
     background: var(--gradient-primary);
     -webkit-background-clip: text;
@@ -161,7 +145,6 @@ All colors MUST be HSL.
     box-shadow: var(--shadow-purple);
   }
 
-  /* Animations */
   .animate-float {
     animation: float 3s ease-in-out infinite;
   }
@@ -185,6 +168,26 @@ All colors MUST be HSL.
     }
     to {
       box-shadow: 0 0 30px hsl(217 95% 49% / 0.4);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .vanta-canvas {
+      animation: none !important;
+    }
+    
+    .vanta-canvas canvas {
+      animation: none !important;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .three-canvas {
+      animation: none !important;
+    }
+    
+    .three-canvas canvas {
+      animation: none !important;
     }
   }
 }

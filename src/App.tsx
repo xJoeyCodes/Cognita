@@ -24,6 +24,7 @@ const App = () => (
         <Routes>
           {/* Public routes */}
           <Route path="/" element={<Landing />} />
+          <Route path="/home-debug" element={<Home />} />
           <Route path="/auth" element={<Auth />} />
           
           {/* Protected routes */}

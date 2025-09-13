@@ -9,10 +9,10 @@ import { useToast } from "@/hooks/use-toast";
 
 interface Flashcard {
   id: string;
-  pdf_file_name: string;
+  pdf_name: string | null;
   question: string;
   answer: string;
-  difficulty: number;
+  difficulty: 'easy' | 'medium' | 'hard' | null;
   created_at: string;
 }
 
@@ -43,12 +43,10 @@ export function StudySession({ flashcards, onComplete }: StudySessionProps) {
     }));
 
     if (currentIndex === flashcards.length - 1) {
-      // Session complete
       const score = (newAnswers.filter(Boolean).length / newAnswers.length) * 100;
       completeStudySession(score, flashcards.length);
       setSessionComplete(true);
     } else {
-      // Move to next card
       setCurrentIndex(prev => prev + 1);
       setShowAnswer(false);
     }

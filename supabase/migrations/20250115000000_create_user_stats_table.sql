@@ -1,4 +1,3 @@
--- Create user_stats table
 CREATE TABLE public.user_stats (
   id UUID NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
   user_id UUID NOT NULL UNIQUE,
@@ -12,10 +11,8 @@ CREATE TABLE public.user_stats (
   updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
 );
 
--- Enable RLS on user_stats
 ALTER TABLE public.user_stats ENABLE ROW LEVEL SECURITY;
 
--- Create policies for user_stats
 CREATE POLICY "Users can view their own stats" 
 ON public.user_stats 
 FOR SELECT 
@@ -36,13 +33,11 @@ ON public.user_stats
 FOR DELETE 
 USING (auth.uid() = user_id);
 
--- Create trigger for automatic timestamp updates
 CREATE TRIGGER update_user_stats_updated_at
   BEFORE UPDATE ON public.user_stats
   FOR EACH ROW
   EXECUTE FUNCTION public.update_updated_at_column();
 
--- Create function to initialize user stats on first sign-in
 CREATE OR REPLACE FUNCTION public.initialize_user_stats()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -53,13 +48,11 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
--- Create trigger to initialize stats when user signs up
 CREATE TRIGGER on_auth_user_created
   AFTER INSERT ON auth.users
   FOR EACH ROW
   EXECUTE FUNCTION public.initialize_user_stats();
 
--- Create function to update study streak
 CREATE OR REPLACE FUNCTION public.update_study_streak(user_uuid UUID)
 RETURNS VOID AS $$
 DECLARE
@@ -67,13 +60,11 @@ DECLARE
   last_streak_date DATE;
   current_streak INTEGER;
 BEGIN
-  -- Get current streak info
   SELECT study_streak, last_streak_date 
   INTO current_streak, last_streak_date
   FROM public.user_stats 
   WHERE user_id = user_uuid;
 
-  -- If no stats exist, create them
   IF current_streak IS NULL THEN
     INSERT INTO public.user_stats (user_id, study_streak, last_streak_date)
     VALUES (user_uuid, 1, current_date)
@@ -84,19 +75,15 @@ BEGIN
     RETURN;
   END IF;
 
-  -- Check if streak should continue or reset
   IF last_streak_date IS NULL OR last_streak_date < current_date - INTERVAL '1 day' THEN
-    -- Reset streak if more than 1 day has passed
     UPDATE public.user_stats 
     SET study_streak = 1, 
         last_streak_date = current_date,
         updated_at = now()
     WHERE user_id = user_uuid;
   ELSIF last_streak_date = current_date THEN
-    -- Already studied today, no change needed
     RETURN;
   ELSIF last_streak_date = current_date - INTERVAL '1 day' THEN
-    -- Continue streak
     UPDATE public.user_stats 
     SET study_streak = current_streak + 1,
         last_streak_date = current_date,
@@ -106,11 +93,9 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
--- Create function to reset daily study count
 CREATE OR REPLACE FUNCTION public.reset_daily_study_count()
 RETURNS VOID AS $$
 BEGIN
-  -- Reset studied_today for all users where last_streak_date is not today
   UPDATE public.user_stats 
   SET studied_today = 0,
       updated_at = now()
@@ -118,7 +103,6 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
--- Create function to increment total flashcards
 CREATE OR REPLACE FUNCTION public.increment_total_flashcards(user_uuid UUID, increment_amount INTEGER DEFAULT 1)
 RETURNS VOID AS $$
 BEGIN
@@ -129,7 +113,6 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
--- Create function to increment studied today
 CREATE OR REPLACE FUNCTION public.increment_studied_today(user_uuid UUID, increment_amount INTEGER DEFAULT 1)
 RETURNS VOID AS $$
 BEGIN

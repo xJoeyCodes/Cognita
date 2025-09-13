@@ -53,7 +53,6 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
   }
 
   if (!user) {
-    // Redirect to landing page with the attempted location
     return <Navigate to="/" state={{ from: location }} replace />;
   }
 

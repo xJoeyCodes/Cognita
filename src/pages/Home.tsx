@@ -12,12 +12,13 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Header } from "@/components/Header";
+import FallbackParticleBackground from "@/components/FallbackParticleBackground";
 
 const Home = () => {
   const features = [
     {
       title: "Upload PDFs",
-      description: "Upload your PDF documents and generate AI-powered flashcards automatically",
+      description: "Upload your PDF documents and generate flashcards automatically",
       icon: Upload,
       link: "/upload",
       color: "shadow-blue/20",
@@ -66,8 +67,12 @@ const Home = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-secondary/20 to-accent/5">
-      <Header showBackButton={false} showLogoutButton={true} />
+    <div className="min-h-screen relative">
+      <FallbackParticleBackground />
+      {/* Subtle overlay for better text readability */}
+      <div className="fixed inset-0 -z-5 bg-gradient-to-br from-background/20 via-transparent to-background/10 pointer-events-none" />
+      <div className="relative z-10">
+        <Header showBackButton={false} showLogoutButton={true} />
       
       <div className="container mx-auto px-4 py-8">
         {/* Welcome Section */}
@@ -76,8 +81,8 @@ const Home = () => {
             Welcome to Cognita
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Your AI-powered learning companion. Upload PDFs, create flashcards, 
-            and master any subject with intelligent study sessions.
+            Your intelligent learning companion. Upload PDFs, create flashcards, 
+            and master any subject with smart study sessions.
           </p>
         </div>
 
@@ -86,7 +91,7 @@ const Home = () => {
           {features.map((feature, index) => {
             const IconComponent = feature.icon;
             return (
-              <Card key={index} className={`hover:shadow-lg transition-all duration-300 ${feature.color}`}>
+              <Card key={index} className={`hover:shadow-lg transition-all duration-300 ${feature.color} bg-card/95 backdrop-blur-sm border-border/50`}>
                 <CardHeader>
                   <div className="flex items-center space-x-3 mb-2">
                     <div className="p-2 bg-primary/10 rounded-lg">
@@ -111,7 +116,7 @@ const Home = () => {
         </div>
 
         {/* Getting Started Section */}
-        <Card className="max-w-4xl mx-auto">
+        <Card className="max-w-4xl mx-auto bg-card/95 backdrop-blur-sm border-border/50">
           <CardHeader>
             <CardTitle className="text-2xl text-center">Getting Started</CardTitle>
             <CardDescription className="text-center">
@@ -157,6 +162,7 @@ const Home = () => {
         <div className="text-center mt-12 text-muted-foreground">
           <p>Ready to transform your learning experience? Let's get started!</p>
         </div>
+      </div>
       </div>
     </div>
   );

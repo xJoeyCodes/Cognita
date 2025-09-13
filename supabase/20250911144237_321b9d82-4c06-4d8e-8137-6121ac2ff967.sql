@@ -1,7 +1,5 @@
--- Create storage bucket for PDF uploads
 INSERT INTO storage.buckets (id, name, public) VALUES ('pdfs', 'pdfs', false);
 
--- Create storage policies for PDF uploads
 CREATE POLICY "Users can view their own PDFs" 
 ON storage.objects 
 FOR SELECT 
@@ -17,7 +15,6 @@ ON storage.objects
 FOR DELETE 
 USING (bucket_id = 'pdfs' AND auth.uid()::text = (storage.foldername(name))[1]);
 
--- Create flashcards table
 CREATE TABLE public.flashcards (
   id UUID NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
   user_id UUID NOT NULL,
@@ -29,10 +26,8 @@ CREATE TABLE public.flashcards (
   updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
 );
 
--- Enable RLS on flashcards
 ALTER TABLE public.flashcards ENABLE ROW LEVEL SECURITY;
 
--- Create policies for flashcards
 CREATE POLICY "Users can view their own flashcards" 
 ON public.flashcards 
 FOR SELECT 
@@ -53,7 +48,6 @@ ON public.flashcards
 FOR DELETE 
 USING (auth.uid() = user_id);
 
--- Create function to update timestamps
 CREATE OR REPLACE FUNCTION public.update_updated_at_column()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -62,7 +56,6 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql SET search_path = public;
 
--- Create trigger for automatic timestamp updates
 CREATE TRIGGER update_flashcards_updated_at
 BEFORE UPDATE ON public.flashcards
 FOR EACH ROW

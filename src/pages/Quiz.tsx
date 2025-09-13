@@ -21,10 +21,10 @@ import { Header } from "@/components/Header";
 
 interface Flashcard {
   id: string;
-  pdf_file_name: string;
+  pdf_name: string | null;
   question: string;
   answer: string;
-  difficulty: number;
+  difficulty: 'easy' | 'medium' | 'hard' | null;
   created_at: string;
 }
 
@@ -33,8 +33,8 @@ interface QuizQuestion {
   question: string;
   correctAnswer: string;
   options: string[];
-  difficulty: number;
-  pdf_file_name: string;
+  difficulty: 'easy' | 'medium' | 'hard' | null;
+  pdf_name: string | null;
 }
 
 const Quiz = () => {
@@ -60,7 +60,6 @@ const Quiz = () => {
     try {
       setLoading(true);
       
-      // Get current user
       const { data: { user }, error: authError } = await supabase.auth.getUser();
       
       if (authError || !user) {
@@ -73,7 +72,6 @@ const Quiz = () => {
         return;
       }
 
-      // Fetch user's flashcards
       const { data, error } = await supabase
         .from('flashcards')
         .select('*')
@@ -92,19 +90,15 @@ const Quiz = () => {
         return;
       }
 
-      // Convert flashcards to quiz questions
       const quizQuestions = data.map(flashcard => {
-        // Create wrong answers by using other flashcards' answers
         const otherAnswers = data
           .filter(f => f.id !== flashcard.id)
           .map(f => f.answer)
           .slice(0, 3); // Take 3 other answers
         
-        // Shuffle and take 3 wrong answers
         const shuffledWrong = otherAnswers.sort(() => Math.random() - 0.5);
         const wrongAnswers = shuffledWrong.slice(0, 3);
         
-        // Combine correct and wrong answers, then shuffle
         const allOptions = [flashcard.answer, ...wrongAnswers].sort(() => Math.random() - 0.5);
         
         return {
@@ -113,11 +107,10 @@ const Quiz = () => {
           correctAnswer: flashcard.answer,
           options: allOptions,
           difficulty: flashcard.difficulty,
-          pdf_file_name: flashcard.pdf_file_name
+          pdf_name: flashcard.pdf_name
         };
       });
 
-      // Randomly select 5-10 questions
       const numQuestions = Math.min(Math.max(5, Math.floor(quizQuestions.length * 0.7)), 10);
       const selectedQuestions = quizQuestions
         .sort(() => Math.random() - 0.5)
@@ -147,7 +140,6 @@ const Quiz = () => {
   const handleNext = () => {
     if (!selectedAnswer || !currentQuestion) return;
 
-    // Record the answer
     const newAnswer = {
       questionId: currentQuestion.id,
       selected: selectedAnswer,
@@ -157,15 +149,12 @@ const Quiz = () => {
     setUserAnswers(prev => [...prev, newAnswer]);
 
     if (currentIndex === questions.length - 1) {
-      // Quiz complete
       const correctAnswers = [...userAnswers, newAnswer].filter(
         answer => answer.selected === answer.correct
       ).length;
       
       const score = (correctAnswers / questions.length) * 100;
       completeStudySession(score, questions.length);
-      
-      // Show confetti for high scores
       if (score >= 80) {
         setShowConfetti(true);
         setTimeout(() => setShowConfetti(false), 3000);
@@ -173,7 +162,6 @@ const Quiz = () => {
       
       setQuizComplete(true);
     } else {
-      // Move to next question
       setCurrentIndex(prev => prev + 1);
       setSelectedAnswer(null);
     }
@@ -187,24 +175,20 @@ const Quiz = () => {
     setStartTime(new Date());
   };
 
-  const getDifficultyColor = (difficulty: number) => {
+  const getDifficultyColor = (difficulty: 'easy' | 'medium' | 'hard' | null) => {
     switch (difficulty) {
-      case 1: return "bg-green-100 text-green-800";
-      case 2: return "bg-blue-100 text-blue-800";
-      case 3: return "bg-yellow-100 text-yellow-800";
-      case 4: return "bg-orange-100 text-orange-800";
-      case 5: return "bg-red-100 text-red-800";
+      case 'easy': return "bg-green-100 text-green-800";
+      case 'medium': return "bg-yellow-100 text-yellow-800";
+      case 'hard': return "bg-red-100 text-red-800";
       default: return "bg-gray-100 text-gray-800";
     }
   };
 
-  const getDifficultyLabel = (difficulty: number) => {
+  const getDifficultyLabel = (difficulty: 'easy' | 'medium' | 'hard' | null) => {
     switch (difficulty) {
-      case 1: return "Easy";
-      case 2: return "Medium";
-      case 3: return "Hard";
-      case 4: return "Expert";
-      case 5: return "Master";
+      case 'easy': return "Easy";
+      case 'medium': return "Medium";
+      case 'hard': return "Hard";
       default: return "Unknown";
     }
   };
@@ -342,7 +326,7 @@ const Quiz = () => {
             <CardHeader>
               <div className="flex items-center justify-between mb-4">
                 <Badge variant="outline" className="text-xs">
-                  {currentQuestion.pdf_file_name}
+                  {currentQuestion.pdf_name || 'Unknown PDF'}
                 </Badge>
                 <Badge className={getDifficultyColor(currentQuestion.difficulty)}>
                   {getDifficultyLabel(currentQuestion.difficulty)}

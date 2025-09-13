@@ -44,10 +44,10 @@ export function Header({
 
   const handleBackClick = async () => {
     if (user) {
-      // User is signed in, go to home
+      
       navigate('/home');
     } else {
-      // User is not signed in, go to landing
+      
       navigate('/');
     }
   };
@@ -73,7 +73,7 @@ export function Header({
     }
   };
 
-  // Don't show header on landing page
+  
   if (location.pathname === '/') {
     return null;
   }

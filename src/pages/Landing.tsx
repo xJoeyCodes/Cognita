@@ -74,7 +74,7 @@ const Landing = () => {
           <div className="text-center mb-12">
             <h3 className="text-3xl font-bold mb-4">Why Choose Cognita?</h3>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Our AI-powered platform makes studying more efficient and effective than ever before.
+              Our intelligent platform makes studying more efficient and effective than ever before.
             </p>
           </div>
           
@@ -84,9 +84,9 @@ const Landing = () => {
                 <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
                   <Brain className="h-6 w-6 text-primary" />
                 </div>
-                <CardTitle>AI-Powered Generation</CardTitle>
+                <CardTitle>Intelligent Generation</CardTitle>
                 <CardDescription>
-                  Advanced AI analyzes your PDFs and creates intelligent flashcards and quizzes automatically.
+                  Advanced technology analyzes your PDFs and creates intelligent flashcards and quizzes automatically.
                 </CardDescription>
               </CardHeader>
             </Card>
