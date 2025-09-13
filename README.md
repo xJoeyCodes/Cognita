@@ -7,9 +7,9 @@
 [![React](https://img.shields.io/badge/React-20232A?logo=react&logoColor=61DAFB)](https://reactjs.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 
-## 🚀 Overview
+## Overview
 
-Cognita AI is an intelligent learning platform that revolutionizes how students and professionals study by transforming PDF documents into interactive flashcards and quizzes using artificial intelligence. The platform leverages advanced AI technology to automatically analyze educational content and generate personalized learning materials.
+Cognita AI is an intelligent learning platform that revolutionizes how students and professionals study by transforming PDF documents into interactive flashcards and quizzes using artificial intelligence. The platform leverages AI technology to automatically analyze educational content and generate personalized learning materials.
 
 ### ✨ Key Features
 
@@ -32,10 +32,10 @@ Traditional study methods often involve:
 
 Cognita AI solves these challenges by automating the creation of study materials and implementing scientifically-proven learning techniques.
 
-## 🛠️ Technology Stack
+## Tech Stack
 
 ### Frontend
-- **React 18** with TypeScript for type safety
+- **React 18** with TypeScript 
 - **Tailwind CSS** for responsive styling
 - **Framer Motion** for smooth animations
 - **Shadcn/ui** for consistent component library
@@ -103,7 +103,7 @@ Cognita AI solves these challenges by automating the creation of study materials
 - **[Team Information](docs/TEAM.md)** - Project team and contributors
 - **[Acknowledgements](docs/ACKNOWLEDGEMENTS.md)** - Third-party libraries and resources
 
-## 🎨 Features in Detail
+## Features
 
 ### PDF Processing
 - Drag-and-drop PDF upload interface
@@ -123,50 +123,13 @@ Cognita AI solves these challenges by automating the creation of study materials
 - Smooth animations and micro-interactions
 - Accessible design following WCAG guidelines
 
-## 🏗️ Project Structure
-
-```
-├── assets/          # Static assets and media files
-├── demo/            # Demo materials and presentations
-├── docs/            # Project documentation
-├── scripts/         # Utility and automation scripts
-├── src/             # Source code
-│   ├── components/  # Reusable UI components
-│   ├── pages/       # Application pages/routes
-│   ├── hooks/       # Custom React hooks
-│   ├── integrations/ # External service integrations
-│   └── lib/         # Utility libraries
-├── vendor/          # Third-party libraries
-└── README.md        # This file
-```
-
-## 🤝 Contributing
-
-We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
-
-### Development Workflow
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
-
-## 📊 Performance
-
-- **Build Size**: ~700KB (gzipped)
-- **Load Time**: < 2 seconds on 3G
-- **Lighthouse Score**: 95+ across all metrics
-- **Accessibility**: WCAG 2.1 AA compliant
-
 ## 🔒 Security
 
 - User authentication via Supabase
 - Row-level security for data protection
 - Secure PDF processing
-- GDPR-compliant data handling
-- No sensitive data stored permanently
 
-## 📈 Roadmap
+## 📈 Roadmap ( My future developments to the project )
 
 ### Phase 2 (Coming Soon)
 - [ ] Audio support with text-to-speech
@@ -180,37 +143,16 @@ We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.
 - [ ] LMS integrations
 - [ ] Advanced analytics dashboard
 
-## 🐛 Bug Reports
-
-Found a bug? Please report it using our [Issue Tracker](https://github.com/your-username/cognita-ai/issues).
-
-## 💡 Feature Requests
-
-Have an idea? We'd love to hear it! Submit your suggestions via [GitHub Discussions](https://github.com/your-username/cognita-ai/discussions).
-
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - [Supabase](https://supabase.com/) for the backend infrastructure
 - [Google AI](https://ai.google.dev/) for the Gemini API
 - [Tailwind CSS](https://tailwindcss.com/) for the styling framework
 - [Shadcn/ui](https://ui.shadcn.com/) for the component library
-- All the open-source contributors who made this possible
 
-## 📞 Contact
 
-- **Project Lead**: [Your Name]
-- **Email**: [your.email@example.com]
-- **GitHub**: [@your-username](https://github.com/your-username)
-- **LinkedIn**: [Your LinkedIn Profile](https://linkedin.com/in/your-profile)
-
-## 🌟 Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=your-username/cognita-ai&type=Date)](https://star-history.com/#your-username/cognita-ai&Date)
-
----
-
-**Made with ❤️ by the Cognita AI Team**
+**Made with ❤️ by the Cognita AI Team (which is just ME)**
