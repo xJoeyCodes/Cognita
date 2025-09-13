@@ -23,12 +23,19 @@ interface Flashcard {
 const Dashboard = () => {
   const [flashcards, setFlashcards] = useState<Flashcard[]>([]);
   const [loading, setLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState("overview");
   const { stats, loading: statsLoading, updateTotalFlashcards, updateTotalFlashcardsToCount, syncTotalFlashcards } = useUserStats();
   const { toast } = useToast();
   const navigate = useNavigate();
 
   useEffect(() => {
     fetchFlashcards();
+    
+    // Check for URL hash to determine active tab
+    const hash = window.location.hash.replace('#', '');
+    if (hash === 'flashcards') {
+      setActiveTab('flashcards');
+    }
   }, []);
 
   const fetchFlashcards = async () => {
@@ -127,10 +134,9 @@ const Dashboard = () => {
           </p>
         </div>
 
-        <Tabs defaultValue="overview" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-3">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+          <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="upload">Upload PDFs</TabsTrigger>
             <TabsTrigger value="flashcards">Your Flashcards</TabsTrigger>
           </TabsList>
 
@@ -223,8 +229,6 @@ const Dashboard = () => {
             </div>
           </TabsContent>
 
-          <TabsContent value="upload" className="space-y-6">
-          </TabsContent>
 
           <TabsContent value="flashcards" className="space-y-6">
             <Card>

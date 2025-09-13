@@ -38,7 +38,7 @@ const Home = () => {
       title: "View Flashcards",
       description: "Browse and manage all your created flashcards in one organized place",
       icon: FileText,
-      link: "/dashboard",
+      link: "/dashboard#flashcards",
       gradient: "from-[#ff94ff] to-[#0166f8]",
       hoverGradient: "from-[#ff94ff]/90 to-[#0166f8]/90",
       buttonText: "View All",
