@@ -57,8 +57,9 @@ const Landing = () => {
       link: "/auth",
       gradient: "from-[#ff94ff] to-[#0166f8]",
       hoverGradient: "from-[#ff94ff]/90 to-[#0166f8]/90",
-      buttonText: "Learn More",
-      delay: 0.5
+      buttonText: "Coming Soon",
+      delay: 0.5,
+      comingSoon: true
     },
     {
       title: "Audio Support",
@@ -67,8 +68,9 @@ const Landing = () => {
       link: "/auth",
       gradient: "from-[#ff94ff] to-[#0166f8]",
       hoverGradient: "from-[#ff94ff]/90 to-[#0166f8]/90",
-      buttonText: "Learn More",
-      delay: 0.6
+      buttonText: "Coming Soon",
+      delay: 0.6,
+      comingSoon: true
     }
   ];
 
@@ -120,12 +122,6 @@ const Landing = () => {
                 <Link to="/upload">
                   <Upload className="mr-2 h-5 w-5" />
                   Upload & Learn Now
-                </Link>
-              </Button>
-              <Button size="lg" variant="outline" className="border-black text-black hover:bg-black hover:text-white transition-all duration-300" asChild>
-                <Link to="/demo">
-                  <Star className="mr-2 h-5 w-5" />
-                  See Demo
                 </Link>
               </Button>
             </div>
@@ -205,25 +201,41 @@ const Landing = () => {
                         whileHover={{ scale: 1.02 }}
                         transition={{ duration: 0.2 }}
                       >
-                        <Button 
-                          asChild 
-                          className={`w-full group/btn bg-gradient-to-r ${feature.gradient} hover:${feature.hoverGradient} text-white shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 rounded-lg`}
-                        >
-                          <Link to={feature.link} className="flex items-center justify-center gap-2 py-2.5">
-                            <motion.span
-                              whileHover={{ x: -1 }}
-                              transition={{ duration: 0.2 }}
+                        {feature.comingSoon ? (
+                          <div className="w-full">
+                            <Button 
+                              disabled
+                              className="w-full bg-gray-100 text-gray-500 cursor-not-allowed rounded-lg py-2.5"
                             >
-                              {feature.buttonText}
-                            </motion.span>
-                            <motion.div
-                              whileHover={{ x: 2 }}
-                              transition={{ duration: 0.2 }}
-                            >
-                              <ArrowRight className="h-4 w-4" />
-                            </motion.div>
-                          </Link>
-                        </Button>
+                              <motion.span>
+                                {feature.buttonText}
+                              </motion.span>
+                            </Button>
+                            <Badge className="mt-2 w-full justify-center bg-yellow-100 text-yellow-800 border-yellow-200">
+                              Coming Soon
+                            </Badge>
+                          </div>
+                        ) : (
+                          <Button 
+                            asChild 
+                            className={`w-full group/btn bg-gradient-to-r ${feature.gradient} hover:${feature.hoverGradient} text-white shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 rounded-lg`}
+                          >
+                            <Link to={feature.link} className="flex items-center justify-center gap-2 py-2.5">
+                              <motion.span
+                                whileHover={{ x: -1 }}
+                                transition={{ duration: 0.2 }}
+                              >
+                                {feature.buttonText}
+                              </motion.span>
+                              <motion.div
+                                whileHover={{ x: 2 }}
+                                transition={{ duration: 0.2 }}
+                              >
+                                <ArrowRight className="h-4 w-4" />
+                              </motion.div>
+                            </Link>
+                          </Button>
+                        )}
                       </motion.div>
                     </CardContent>
                   </Card>
