@@ -8,7 +8,7 @@ import { Brain, Upload, FileText, BookOpen, Plus, Trash2 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-import { useUserStats } from "@/hooks/useUserStats";
+import { useUserStats }   from "@/hooks/useUserStats";
 import { Header } from "@/components/Header";
 import PDFUploadAnalyzer from "@/components/PDFUploadAnalyzer";
 
