@@ -89,7 +89,7 @@ const Auth = () => {
           <div className="flex items-center justify-center space-x-2 mb-4">
             <div className="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center">
               <img 
-              src="/logo.png" 
+              src="/assets/logo.png" 
               alt="Cognita Logo" 
               className="h-12 w-10 object-contain" 
              />

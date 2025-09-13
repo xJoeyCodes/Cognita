@@ -79,7 +79,7 @@ export function Header({
   }
 
   return (
-    <header className={`border-b border-border/50 bg-background/80 backdrop-blur-sm ${className}`}>
+    <header className={`border-b border-border/50 bg-white backdrop-blur-sm ${className}`}>
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <div className="flex items-center space-x-4">
           {showBackButton && (
@@ -90,7 +90,7 @@ export function Header({
           )}
           <div className="flex items-center space-x-2">
             <img 
-              src="/logo.png" 
+              src="/assets/logo.png" 
               alt="Cognita Logo" 
               className="h-12 w-10 object-contain" 
             />

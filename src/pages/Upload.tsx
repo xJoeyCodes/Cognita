@@ -91,11 +91,13 @@ const UploadPage = () => {
         let fileSuccess = false;
         
         try {
-          const geminiApiKey = import.meta.env.VITE_GEMINI_API_KEY;
+          // Temporary hardcoded API key for testing
+          const geminiApiKey = import.meta.env.VITE_GEMINI_API_KEY || 'AIzaSyBWvWyMvgWQ54z0u3kfRdXeJI3m-GbPWQ0';
           
           console.log('Environment variables check:');
           console.log('VITE_GEMINI_API_KEY exists:', !!import.meta.env.VITE_GEMINI_API_KEY);
           console.log('VITE_GEMINI_API_KEY value:', import.meta.env.VITE_GEMINI_API_KEY ? '***' + import.meta.env.VITE_GEMINI_API_KEY.slice(-4) : 'undefined');
+          console.log('Using API key:', geminiApiKey ? '***' + geminiApiKey.slice(-4) : 'undefined');
           console.log('All env vars:', import.meta.env);
           
           if (!geminiApiKey) {
@@ -111,8 +113,9 @@ const UploadPage = () => {
             },
             body: JSON.stringify({
               contents: [{
-                parts: [{
-                  text: `Analyze this PDF and generate 5 flashcards and 3 multiple-choice quiz questions. Return ONLY a valid JSON object with this exact structure:
+                parts: [
+                  {
+                    text: `Analyze this PDF and generate 5 flashcards and 3 multiple-choice quiz questions. Return ONLY a valid JSON object with this exact structure:
 
 {
   "flashcards": [
@@ -131,12 +134,15 @@ const UploadPage = () => {
   ]
 }
 
-Generate relevant questions and answers based on the actual PDF content. Use difficulty levels: easy, medium, hard.`,
-                  inlineData: {
-                    mimeType: "application/pdf",
-                    data: base64
+Generate relevant questions and answers based on the actual PDF content. Use difficulty levels: easy, medium, hard.`
+                  },
+                  {
+                    inlineData: {
+                      mimeType: "application/pdf",
+                      data: base64
+                    }
                   }
-                }]
+                ]
               }]
             })
           });
@@ -163,7 +169,14 @@ Generate relevant questions and answers based on the actual PDF content. Use dif
 
           let aiData;
           try {
-            aiData = JSON.parse(content);
+            // Strip markdown code blocks if present
+            let jsonContent = content;
+            if (content.includes('```json')) {
+              jsonContent = content.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+            }
+            console.log('Cleaned JSON content:', jsonContent);
+            
+            aiData = JSON.parse(jsonContent);
             console.log('Parsed AI data:', aiData);
           } catch (parseError) {
             console.error('Failed to parse AI response:', content);
@@ -171,13 +184,21 @@ Generate relevant questions and answers based on the actual PDF content. Use dif
           }
 
           if (aiData.flashcards && aiData.flashcards.length > 0) {
-            const flashcards = aiData.flashcards.map((card: any) => ({
-              user_id: user.id,
-              pdf_name: file.name,
-              question: card.question,
-              answer: card.answer,
-              difficulty: card.difficulty || 'medium'
-            }));
+            const flashcards = aiData.flashcards.map((card: any) => {
+              // Convert difficulty string to number for database
+              let difficultyNum = 2; // default to medium
+              if (card.difficulty === 'easy') difficultyNum = 1;
+              else if (card.difficulty === 'medium') difficultyNum = 2;
+              else if (card.difficulty === 'hard') difficultyNum = 3;
+              
+              return {
+                user_id: user.id,
+                pdf_file_name: file.name,
+                question: card.question,
+                answer: card.answer,
+                difficulty: difficultyNum
+              };
+            });
 
             const { error: insertError } = await supabase
               .from('flashcards')
@@ -225,11 +246,11 @@ Generate relevant questions and answers based on the actual PDF content. Use dif
             variant: "destructive",
           });
           
-          const difficulties = ['easy', 'medium', 'hard'] as const;
+          const difficulties = [1, 2, 3]; // easy, medium, hard as numbers
           const fallbackFlashcards = [
             {
               user_id: user.id,
-              pdf_name: file.name,
+              pdf_file_name: file.name,
               question: `What is the main topic discussed in ${file.name}?`,
               answer: "Unable to analyze PDF content with AI. Please check your API key or try again.",
               difficulty: difficulties[Math.floor(Math.random() * 3)]

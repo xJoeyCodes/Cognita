@@ -321,10 +321,10 @@ const Quiz = () => {
         </div>
 
         {/* Question */}
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-5xl mx-auto">
           <Card className="hover:shadow-lg transition-shadow">
-            <CardHeader>
-              <div className="flex items-center justify-between mb-4">
+            <CardHeader className="pb-4">
+              <div className="flex items-center justify-between mb-2">
                 <Badge variant="outline" className="text-xs">
                   {currentQuestion.pdf_name || 'Unknown PDF'}
                 </Badge>
@@ -333,27 +333,33 @@ const Quiz = () => {
                 </Badge>
               </div>
             </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="text-center mb-6">
-                <h3 className="text-xl font-semibold">
+            <CardContent className="space-y-8 px-8 pb-8">
+              <div className="text-center mb-8">
+                <h3 className="text-xl font-semibold leading-relaxed">
                   {currentQuestion.question}
                 </h3>
               </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div className="space-y-4">
                 {currentQuestion.options.map((option, index) => (
                   <Button
                     key={index}
                     variant={selectedAnswer === option ? "default" : "outline"}
-                    className={`h-auto p-4 text-left justify-start ${
+                    className={`w-full h-auto p-6 text-left justify-start text-wrap ${
                       selectedAnswer === option 
                         ? "bg-primary text-primary-foreground" 
                         : "hover:bg-secondary"
                     }`}
                     onClick={() => handleAnswerSelect(option)}
                   >
-                    <span className="font-medium mr-2">{String.fromCharCode(65 + index)}.</span>
-                    {option}
+                    <div className="flex items-start space-x-3">
+                      <span className="font-bold text-lg flex-shrink-0 mt-0.5">
+                        {String.fromCharCode(65 + index)}.
+                      </span>
+                      <span className="text-sm leading-relaxed break-words">
+                        {option}
+                      </span>
+                    </div>
                   </Button>
                 ))}
               </div>

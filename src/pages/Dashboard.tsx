@@ -10,7 +10,6 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { useUserStats }   from "@/hooks/useUserStats";
 import { Header } from "@/components/Header";
-import PDFUploadAnalyzer from "@/components/PDFUploadAnalyzer";
 
 interface Flashcard {
   id: string;
@@ -99,9 +98,9 @@ const Dashboard = () => {
 
   const getDifficultyColor = (difficulty: string | null) => {
     switch (difficulty) {
-      case 'easy': return "bg-green-100 text-green-800";
-      case 'medium': return "bg-yellow-100 text-yellow-800";
-      case 'hard': return "bg-red-100 text-red-800";
+      case 'easy': return "bg-gradient-to-r from-[#ff94ff]/20 to-[#0166f8]/20 text-black";
+      case 'medium': return "bg-gradient-to-r from-[#ff94ff]/30 to-[#0166f8]/30 text-black";
+      case 'hard': return "bg-gradient-to-r from-[#ff94ff]/40 to-[#0166f8]/40 text-black";
       default: return "bg-gray-100 text-gray-800";
     }
   };
@@ -117,13 +116,13 @@ const Dashboard = () => {
 
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-secondary/20 to-accent/5">
+    <div className="min-h-screen bg-white">
       <Header backButtonText="Home" />
 
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8">
-          <h2 className="text-3xl font-bold mb-2">Study Dashboard</h2>
-          <p className="text-muted-foreground">
+          <h2 className="text-3xl font-bold mb-2 text-black">Study Dashboard</h2>
+          <p className="text-gray-600">
             Track your learning progress and manage your flashcards.
           </p>
         </div>
@@ -138,7 +137,7 @@ const Dashboard = () => {
           <TabsContent value="overview" className="space-y-6">
             {/* Stats Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-              <Card className="shadow-blue/20">
+              <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
                 <CardHeader className="pb-3">
                   <CardTitle className="text-sm font-medium">Total Flashcards</CardTitle>
                   <div className="text-2xl font-bold">{stats.totalFlashcards}</div>
@@ -163,7 +162,7 @@ const Dashboard = () => {
                 </CardContent>
               </Card>
 
-              <Card className="shadow-blue/20">
+              <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
                 <CardHeader className="pb-3">
                   <CardTitle className="text-sm font-medium">Average Score</CardTitle>
                   <div className="text-2xl font-bold">{stats.averageScore}%</div>
@@ -199,8 +198,7 @@ const Dashboard = () => {
               
               <Button 
                 size="lg" 
-                variant="outline" 
-                className="h-20 border-accent/50 hover:bg-accent/10"
+                className="h-20 bg-gradient-to-r from-[#ff94ff] to-[#0166f8] hover:from-[#ff94ff]/90 hover:to-[#0166f8]/90 text-white"
                 onClick={() => navigate('/study-session')}
                 disabled={flashcards.length === 0}
               >
@@ -213,7 +211,7 @@ const Dashboard = () => {
               <Button 
                 size="lg" 
                 variant="outline" 
-                className="h-20 border-accent/50 hover:bg-accent/10"
+                className="h-20 border-black text-black hover:bg-black hover:text-white"
                 onClick={() => navigate('/quiz')}
                 disabled={flashcards.length === 0}
               >
@@ -226,7 +224,6 @@ const Dashboard = () => {
           </TabsContent>
 
           <TabsContent value="upload" className="space-y-6">
-            <PDFUploadAnalyzer onFlashcardsUpdated={fetchFlashcards} />
           </TabsContent>
 
           <TabsContent value="flashcards" className="space-y-6">
