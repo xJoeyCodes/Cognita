@@ -94,17 +94,11 @@ const UploadPage = () => {
           // Temporary hardcoded API key for testing
           const geminiApiKey = import.meta.env.VITE_GEMINI_API_KEY || 'AIzaSyBWvWyMvgWQ54z0u3kfRdXeJI3m-GbPWQ0';
           
-          console.log('Environment variables check:');
-          console.log('VITE_GEMINI_API_KEY exists:', !!import.meta.env.VITE_GEMINI_API_KEY);
-          console.log('VITE_GEMINI_API_KEY value:', import.meta.env.VITE_GEMINI_API_KEY ? '***' + import.meta.env.VITE_GEMINI_API_KEY.slice(-4) : 'undefined');
-          console.log('Using API key:', geminiApiKey ? '***' + geminiApiKey.slice(-4) : 'undefined');
-          console.log('All env vars:', import.meta.env);
           
           if (!geminiApiKey) {
             throw new Error('Gemini API key not found. Please add VITE_GEMINI_API_KEY to your .env.local file and restart the dev server.');
           }
 
-          console.log('Starting AI analysis for:', file.name);
           
           const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${geminiApiKey}`, {
             method: 'POST',
