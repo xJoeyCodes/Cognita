@@ -18,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { useUserStats } from "@/hooks/useUserStats";
+import { useAchievements } from "@/hooks/useAchievements";
 import { Header } from "@/components/Header";
 
 interface Flashcard {
@@ -42,6 +43,7 @@ const StudySession = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const { completeStudySession, refreshStats } = useUserStats();
+  useAchievements(); // Initialize achievement checking
 
   useEffect(() => {
     fetchFlashcards();

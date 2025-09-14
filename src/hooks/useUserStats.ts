@@ -282,33 +282,38 @@ export function useUserStats() {
     try {
       const { data: currentStats, error: fetchError } = await supabase
         .from('user_stats')
-        .select('average_score, studied_today')
+        .select('average_score, quiz_sessions_count')
         .eq('user_id', user.id)
         .single();
 
       if (fetchError) throw fetchError;
 
       const currentAverage = (currentStats as any)?.average_score || 0;
-      const totalSessions = (currentStats as any)?.studied_today || 0;
+      const totalSessions = (currentStats as any)?.quiz_sessions_count || 0;
       
       const newAverage = totalSessions === 0 
         ? newScore 
-        : ((currentAverage * (totalSessions - 1)) + newScore) / totalSessions;
+        : ((currentAverage * totalSessions) + newScore) / (totalSessions + 1);
+
+      // Update quiz sessions count
+      const { error: updateError } = await supabase
+        .from('user_stats')
+        .update({ 
+          average_score: newAverage,
+          quiz_sessions_count: totalSessions + 1
+        } as any)
+        .eq('user_id', user.id);
+
+      if (updateError) {
+        await fetchUserStats();
+        throw updateError;
+      }
 
       setStats(prev => ({
         ...prev,
         averageScore: Math.round(newAverage),
       }));
 
-      const { error } = await supabase
-        .from('user_stats')
-        .update({ average_score: newAverage } as any)
-        .eq('user_id', user.id);
-
-      if (error) {
-        await fetchUserStats();
-        throw error;
-      }
     } catch (error) {
       console.error('Error updating average score:', error);
       toast({
