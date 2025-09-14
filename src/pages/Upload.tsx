@@ -91,8 +91,7 @@ const UploadPage = () => {
         let fileSuccess = false;
         
         try {
-          // Temporary hardcoded API key for testing
-          const geminiApiKey = import.meta.env.VITE_GEMINI_API_KEY || 'AIzaSyBWvWyMvgWQ54z0u3kfRdXeJI3m-GbPWQ0';
+          const geminiApiKey = import.meta.env.VITE_GEMINI_API_KEY;
           
           
           if (!geminiApiKey) {

@@ -53,48 +53,37 @@ Cognita AI solves these challenges by automating the creation of study materials
 ## 🚀 Quick Start
 
 ### Prerequisites
-- Node.js 18 or higher
-- npm or yarn package manager
-- Supabase account (free tier available)
-- Google AI Studio account
+- Node.js 18+
+- Supabase account (free)
+- Google AI Studio account (free)
 
 ### Installation
 
-1. **Clone the repository**
+1. **Clone and install**
    ```bash
    git clone https://github.com/your-username/cognita-ai.git
    cd cognita-ai
-   ```
-
-2. **Install dependencies**
-   ```bash
    npm install
    ```
 
-3. **Set up environment variables**
-   ```bash
-   cp .env.example .env.local
-   ```
-   
-   Add your credentials to `.env.local`:
+2. **Set up environment**
+   Create `.env.local` file:
    ```env
-   VITE_SUPABASE_URL=your_supabase_project_url
-   VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
-   VITE_GEMINI_API_KEY=your_gemini_api_key
+   VITE_SUPABASE_URL=your_supabase_url
+   VITE_SUPABASE_ANON_KEY=your_supabase_key
+   VITE_GEMINI_API_KEY=your_gemini_key
    ```
 
-4. **Set up the database**
-   - Create a new Supabase project
-   - Run the SQL commands from `docs/SETUP.md`
-   - Get your API keys from Supabase settings
+3. **Set up database**
+   - Create project at [supabase.com](https://supabase.com)
+   - Run SQL commands from `docs/SETUP.md`
+   - Get API keys from Supabase settings
 
-5. **Start the development server**
+4. **Start the app**
    ```bash
    npm run dev
    ```
-
-6. **Open your browser**
-   Navigate to `http://localhost:8080`
+   Open http://localhost:8080
 
 ## 📖 Documentation
 
