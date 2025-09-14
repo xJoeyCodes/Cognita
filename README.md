@@ -61,8 +61,8 @@ Cognita AI solves these challenges by automating the creation of study materials
 
 1. **Clone and install**
    ```bash
-   git clone https://github.com/your-username/cognita-ai.git
-   cd cognita-ai
+   git clone https://github.com/your-username/Cognita.git
+   cd Cognita
    npm install
    ```
 
